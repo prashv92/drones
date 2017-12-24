@@ -1,9 +1,7 @@
 from Vehicle.Vehicle import Vehicle
 
+# Cell in CTM
 
-######################
-#### Cell in CTM
-######################
 class Cell:
     id = 0
     link = {}
@@ -20,7 +18,6 @@ class Cell:
     startCell = False
     endCell = False
 
-
     def __init__(self,id, link, prevCell, nextCell, ffS, waveSpeed, dx, dt, startCell, endCell):
         self.link = link
         self.id = id
@@ -34,10 +31,7 @@ class Cell:
         self.startCell = startCell
         self.endCell = endCell
 
-
-    ###########################################################
-    #### Method to calculate sending flow at each time step
-    ###########################################################
+    # Method to calculate sending flow at each time step
     def calculateSendingFlow(self):
         self.sendingFlow = int(min(self.cellCapacity, len(self.currentVehicles)))
         sendVehicles = []
@@ -46,24 +40,18 @@ class Cell:
 
         return sendVehicles
 
-    ###########################################################
-    #### Method to calculate receiving flow at each time step
-    ###########################################################
+    # Method to calculate receiving flow at each time step
     def calculateReceivingFlow(self):
         self.receivingFlow = int(min(self.cellCapacity, self.waveSpeed*(self.jamDensity - len(self.currentVehicles))/self.ffT))
 
         return self.receivingFlow
 
-    ###########################################################
-    #### Method to add vehicles to cell at each time step
-    ###########################################################
+    # Method to add vehicles to cell at each time step
     def addVehicle(self, vehicle):
         self.currentVehicles.append(vehicle)
         self.density = len(self.currentVehicles)/(self.dx*self.dt)
 
-    ###########################################################
-    #### Method to get current vehicles in a cell
-    ###########################################################
+    # Method to get current vehicles in a cell
     def getOccupancy(self):
         return self.currentVehicles
 

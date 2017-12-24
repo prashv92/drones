@@ -28,7 +28,6 @@ class Link:
         self.toll = toll
         self.type = type
 
-
     def populateCells(self,timeStep):
         noOfCells = int(self.length/(self.freeFlowSpeed*timeStep))
         dx = self.length/noOfCells
@@ -47,9 +46,7 @@ class Link:
 
         return 0
 
-    ####################################################
-    #### Method to update cells at each time step
-    ####################################################
+    # Method to update cells at each time step
     def updateCells(self):
         for cell in self.cells:
             prev = cell.prevCell
@@ -61,7 +58,6 @@ class Link:
                 currVehicles.pop(v)
 
         return 0
-
 
     def density(self):
         count = 0

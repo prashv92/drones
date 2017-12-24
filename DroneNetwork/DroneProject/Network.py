@@ -4,9 +4,8 @@ from DroneProject.Node import Node
 from Vehicle import Vehicle
 from random import *
 
-######################
-#### Network Class
-######################
+
+# Network Class
 class Network():
     attributes = []
     vehicles = []
@@ -17,9 +16,7 @@ class Network():
     nodes = {}
     dynamicOD = []
 
-    ####################################################
-    #### Method to read network from Bargera file
-    ####################################################
+    # Method to read network from Bargera file
     def readNetworkFromBargera(self, bargeraNetworkFile):
         try:
             with open(bargeraNetworkFile) as networkFile:
@@ -32,7 +29,6 @@ class Network():
                             continue
 
                         #print(data)
-
 
                         print('edge yet to be added')
                         ffs = float(data[3])/float(data[4])
@@ -62,9 +58,8 @@ class Network():
 
         print(data)
 
-    ####################################################
-    #### Method to read network from Bargera file
-    ####################################################
+
+    # Method to read network from Bargera file
     def readNodesFromBargera(self, bargeraNodesFile):
         try:
             with open(bargeraNodesFile) as nodeFile:
@@ -77,12 +72,14 @@ class Network():
                             continue
 
                         # print(data)
-
-
                         node = Node(int(data[0]), int(data[1]), int(data[2]))
 
                         self.nodes[int(data[0])] = node
-                        # self.add_edge(int(data[0]), int(data[1]), capacity = float(data[2]), length = float(data[3]), fft = float(data[4]), ws = 0.5*float(data[4]), b = float(data[5]), power = float(data[6]), speedLimit = float(data[7]), toll = float(data[8]), type = float(data[9]))  # errors out when attributes are added - expected 3 input variables but 4 provided. Must check.
+                        self.add_edge(int(data[0]), int(data[1]), capacity = float(data[2]), \
+                            length = float(data[3]), fft = float(data[4]), ws = 0.5*float(data[4]), \
+                                b = float(data[5]), power = float(data[6]), speedLimit = float(data[7]), \
+                                    toll = float(data[8]), type = float(data[9]))
+                        #  errors out when attributes are added - expected 3 input variables but 4 provided. Must check.
 
                         print('Node added')
                         # print(self.get_edge_data(int(data[0]), int(data[1])))
@@ -91,16 +88,12 @@ class Network():
                         print('error reading file')
                         break
 
-
-
         except IOError as ioError:
             print('Error reading from file' + ioError)
 
         print(data)
 
-    #############################################################
-    ##### Method to read demand File and create dynamic OD file
-    #############################################################
+    # Method to read demand File and create dynamic OD file
     def readDemandFile(self, demandFile):
 
         demandMatrix = []
@@ -149,14 +142,10 @@ class Network():
                         print('error reading file')
                         break
 
-
-
         except IOError as ioError:
             print('Error reading from file' + ioError)
 
         return 0
-
-
 
     def getVehicles(self):
         for tup in self.dynamicOD:
