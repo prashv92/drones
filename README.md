@@ -2,8 +2,9 @@
 
 
 ### 1) Code CTM
-	1.1) Node model
-	1.2) Testing with Michael's code
+	1.1) Node model - done
+	1.2) Implement shortest path to assign initial paths to vehicles
+	1.3) Testing with Michael's code
 
 ### 2) Markov decision process coding
 	2.1) Basic online shortest path that works with code structure
