@@ -3,8 +3,8 @@ from DroneProject.Cell import Cell
 
 class Link:
     cells = list()
-    sourceNode = 0
-    destNode = 0
+    sourceNode = None
+    destNode = None
     capacity = 0
     length = 0
     freeFlowSpeed = 0
@@ -14,6 +14,7 @@ class Link:
     speedLimit = 0
     toll = 0
     type = 0
+    remainingFlow = 0
 
     def __init__(self, sourceNode, destNode, capacity, length, freeFlowSpeed, waveSpeed, b, power, speedLimit, toll, type):
         self.sourceNode = sourceNode
@@ -27,6 +28,7 @@ class Link:
         self.speedLimit = speedLimit
         self.toll = toll
         self.type = type
+
 
     def populateCells(self,timeStep):
         noOfCells = int(self.length/(self.freeFlowSpeed*timeStep))
@@ -46,7 +48,9 @@ class Link:
 
         return 0
 
-    # Method to update cells at each time step
+    ####################################################
+    #### Method to update cells at each time step
+    ####################################################
     def updateCells(self):
         for cell in self.cells:
             prev = cell.prevCell
@@ -59,6 +63,10 @@ class Link:
 
         return 0
 
+    def sendingFlow(self):
+        length = len(self.cells)
+        return self.cells[length-1].calculateSendingFlow()
+
     def density(self):
         count = 0
         for cell in self.cells:
@@ -66,4 +74,23 @@ class Link:
 
         return float(count/self.length)
 
+    def step(self):
+        for c in self.cells:
+            c.step()
+
+    def update(self):
+        for c in self.cells:
+            c.update()
+
+    def getReceivingFlow(self):
+        startCell = self.cells[0]
+        self.remainingFlow = startCell.calculateReceivingFlow()
+        return self.remainingFlow
+
+    def remainingCapacity(self,flow):
+        self.remainingFlow -= 1
+        return self.remainingFlow
+
+    def addVehicle(self, vehicle):
+        self.cells[0].next.append(vehicle)
 

@@ -12,5 +12,5 @@ class Drone:
         n.readNetworkFromBargera(netf)
         n.readDemandFile(tripf)
 
-        duration = 100
-        for i in range(duration):
+
+

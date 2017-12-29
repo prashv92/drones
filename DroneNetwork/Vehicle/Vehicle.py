@@ -1,7 +1,23 @@
 
 class Vehicle:
-    sourceNode = 0
-    destNode = 0
+    sourceNode = None
+    destNode = None
     id = 0
-    route = list()
+    path = list()
+    currentLink = None
+    nextLink = None
+    currentCell = None
+    depTime = 0
 
+    def __init__(self, sourceNode, destNode, id, depTime):
+        self.sourceNode = sourceNode
+        self.destNode = destNode
+        self.id = id
+        self.depTime = depTime
+
+
+    def getPath(self):
+        return self.path
+
+    def setPath(self, path):
+        self.path = path

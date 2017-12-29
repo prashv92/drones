@@ -7,6 +7,7 @@ class Node:
     incomingLinks = []
     outgoingLinks = []
 
+
     def __init__(self,id,longitude,latitude):
         self.id = id
         self.longitude = longitude
@@ -32,3 +33,18 @@ class Node:
 
     def getOutgoingLinks(self):
         return self.outgoingLinks
+
+    def step(self):
+        linksIn = self.getIncomingLinks()
+        linksOut = self.getOutgoingLinks()
+        for l in linksIn:
+            sending = l.calculateSendingFlow()
+            for v in sending:
+                nextLink = v.getNextLink()
+                if nextLink is None:
+                    sending.pop(v)
+                else:
+                    if nextLink.remainingCapacity > 0:
+                        nextLink.cells[0].append(v)
+                        nextLink.remainingFlow-=1
+
